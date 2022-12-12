@@ -4,27 +4,29 @@ from time import *
 tracer(0)
 speed(0)
 
-
 #for 2 solutions of square root set dsoln as True
-sqrtcase='false'
-dsoln=True
-lowerlim=-3
-upperlim=3
+sqrtcase='true'
+dsoln=False
+lowerlim=-3.14
+upperlim=3.14
 dx=0.01
-a=50
+a=100
 sh=1
+l=3.1415/2
 
-
-
+pi=3.1415
 
 
 def func(x):
-        global sqrtcase
+        global sqrtcase,xd
+        sol=0
+        for i in range (1,100,2):
+        	sol+=(1/i)*(sin((i*pi*x)/l))
         try:
-            # enter your function
+            # enter your function 'y''
             
-            function=3*(sqrt(1-x*x/4))
-            
+            function=(4/pi)*sol
+           
             
             
             return(function)
@@ -33,8 +35,24 @@ def func(x):
         	return(0)
         else:
         	sqrtcase='false'
-        	
-        
+
+lol=-5
+
+while(lol<=5):
+	pu()
+	goto((a*lol)/sh,a*func(lol))
+	pd()
+	fd(1)
+	bk(1)
+
+	if sqrtcase == 'true' and dsoln==True:
+		pu()
+		goto((a*lol)/sh,-a*func(lol))
+		pd()
+		fd(1)
+		bk(1)
+	
+	lol=lol+0.001
 def rect(l,b,x):
     pu()
     setx(x)
@@ -68,7 +86,8 @@ area=0
 x=lowerlim
 y1,y2=0.0,0.0
 adx=[dx*20,dx*10,dx]
-
+pu()
+goto(lowerlim,0)
 while x<=upperlim:
     area+=(dx*func(x))
     x+=dx
@@ -82,7 +101,7 @@ while x<=upperlim:
     y2=y1
     s.seth(degrees(-atan((dy/dx/a)*sh)))
     t.clear()
-    t.write("area="+str("{:.4f}".format(area))+"    slope="+str(round(degrees(-atan((dy/dx/a)*sh)),2)))
+    t.write("area="+str("{:.4f}".format(area))+"                   slope="+str(round(degrees(-atan((dy/dx/a)*sh)),2)))
     update()
- 
+ 
 sleep(100)
